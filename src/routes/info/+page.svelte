@@ -1,4 +1,4 @@
-<article class="my-10 prose max-w-none md:mx-20 lg:mx-40 grid md:grid-cols-2  gap-x-20">
+<article class="my-10 prose max-w-none md:mx-10 lg:mx-20 grid md:grid-cols-2 gap-x-20">
     <div class="md:col-span-2 mb-5">
         <h1>What is Raffle Tag Team?</h1>
         <p>The SnapLAN Raffle Tag Team is a competition in which random teams compete against each other in different

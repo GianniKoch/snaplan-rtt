@@ -1,5 +1,6 @@
 import {getUser, getUsers} from "./user-service.js";
 import {Score} from "../database.js";
+import fetch from "node-fetch";
 
 async function getScores(playerId, pages) {
     const scores = [];
@@ -46,7 +47,7 @@ export async function fetchAllScores() {
 export async function fetchScoresByPlayerId(playerId) {
     const pageCount = await getPageCountOfPlayer(playerId);
     console.log(`Fetching ${pageCount} pages of player ${playerId}!`)
-    getScores(playerId, pageCount).then((scores) => Score.bulkCreate(scores, {ignoreDuplicates: true}));
+    getScores(playerId, pageCount).then((scores) => Score.bulkCreate(scores, {ignoreDuplicates: true}) && console.log(`Added ${scores.length} scores of player ${playerId}!`));
 }
 
 async function get(url, options = {}) {
