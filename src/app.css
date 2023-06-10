@@ -1,0 +1,14 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --nav-hover: #ff5965;
+    --bc: 228 14.3% 93.1%;
+    --nc: 0 0% 100%;
+}
+
+body {
+    margin: 0 10%;
+}
