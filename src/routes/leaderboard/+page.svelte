@@ -6,6 +6,7 @@
     import TotalLeaderboard from "$lib/components/TotalLeaderboard.svelte";
     import Leaderboard from "$lib/components/Leaderboard.svelte";
     import Timer from "$lib/components/Timer.svelte";
+    import {to_number} from "svelte/internal";
 
     let rounds = []
     let curRound = 0
@@ -16,9 +17,34 @@
             const res = await fetch(`http://localhost:3000/api/rounds`, {mode: "cors"})
             rounds = (await res.json()).sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
             isLoading = false
-        }, 2000);
+        }, 2000, 0);
 
     });
+
+    function calculateTeamScores() {
+        for (const round of rounds) {
+            const teams = round.teams;
+            round.maxScore = round.leaderboards.map(leaderboard => leaderboard.maxScore).reduce((a, b) => to_number(a) + to_number(b), 0);
+            for (let team of teams) {
+                team.score = 0;
+                for (let user of team.users) {
+                    team.score += user.scores.map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0);
+                }
+                team.score = Math.round(team.score / team.users.length / round.leaderboards.length / round.maxScore * 10000) / 100;
+            }
+
+            // sort teams by score
+            round.teams = teams.sort((a, b) => b.score - a.score);
+            // calculate tickets
+
+            round.teams.forEach((team, i) => {
+                    team.tickets = new Date() < new Date(round.startTime) ? 0 : (round.teams.length - i) * 3;
+
+            });
+        }
+    }
+
+    $: rounds && calculateTeamScores();
 
 
 </script>

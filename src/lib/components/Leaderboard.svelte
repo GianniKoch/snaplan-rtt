@@ -1,8 +1,8 @@
 <script>
     import Timer from "$lib/components/Timer.svelte";
+    import LeaderboardScore from "$lib/components/LeaderboardScore.svelte";
 
     export let round = {};
-
 </script>
 
 {#if new Date(round.startTime) - new Date() > 0}
@@ -12,21 +12,24 @@
             <Timer startTime={round.startTime}/>
         </div>
     </div>
-{:else if new Date(round.endTime) - new Date() < 0}
-    <div class="flex">
-        <div class="m-auto prose content-center">
-            <h1>Round has ended!</h1>
-        </div>
-    </div>
 {:else}
     <div class="block lg:flex mt-16">
         <div class="block">
-            <div class="prose mb-4">
-                <h2 class="text-center">Round ends in</h2>
-                <div class="flex justify-center">
-                    <Timer startTime={round.endTime}/>
+            {#if new Date(round.endTime) - new Date() < 0}
+                <div class="prose mb-4">
+                    <h2 class="text-center">Round has ended!</h2>
+                    <div class="flex justify-center">
+                        <Timer startTime={round.endTime}/>
+                    </div>
                 </div>
-            </div>
+            {:else}
+                <div class="prose mb-4">
+                    <h2 class="text-center">Round ends in</h2>
+                    <div class="flex justify-center">
+                        <Timer startTime={round.endTime}/>
+                    </div>
+                </div>
+            {/if}
             <div class="divider mt-4"></div>
             <div>
                 <div class="prose text-center">
@@ -40,7 +43,7 @@
                             <div class="p-0 m-0 w-full">
                                 <h3 class="m-1 justify-items-center">{leaderboard.name}</h3>
                                 <a href="https://beatsaver.com/maps/{leaderboard.bsrKey}"
-                                   class="w-24 btn btn-sm btn-primary">BEATSAVER</a>
+                                   class="w-24 btn btn-sm btn-primary" target="_blank">BEATSAVER</a>
                             </div>
                         </div>
                     {/each}
@@ -60,25 +63,7 @@
                 </thead>
                 <tbody>
                 {#each round.teams as team}
-                    <tr>
-                        <td>
-                            <div class="flex items-center space-x-3">
-                                {#each team.users as user}
-                                    <div class="avatar tooltip tooltip-bottom tooltip-primary"
-                                         data-tip="{user.displayName}">
-                                        <div class="mask mask-squircle w-12 h-12">
-                                            <img src="https://cdn.scoresaber.com/avatars/{user.id}.jpg"
-                                                 alt="{user.displayName}"/>
-                                        </div>
-                                    </div>
-                                {/each}
-                            </div>
-                        </td>
-                        <td>97%</td>
-                        <th>
-                            <button class="btn btn-ghost btn-xs">+27 Tickets</button>
-                        </th>
-                    </tr>
+                    <LeaderboardScore team={team}/>
                 {/each}
                 </tbody>
             </table>
