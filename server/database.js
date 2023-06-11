@@ -1,6 +1,6 @@
 import {DataTypes, Sequelize} from "sequelize";
 
-const database = new Sequelize('postgresql://postgres:password@localhost:5432/snaplan-rtt', {
+const database = new Sequelize('postgresql://postgres:password@localhost:5432/snaplan_rtt', {
     logging: false
 });
 

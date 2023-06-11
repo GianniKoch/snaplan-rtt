@@ -52,13 +52,13 @@
         </div>
         <div class="divider lg:divider-horizontal"></div>
         <div class="overflow-x-auto w-full">
-            <table class="table">
+            <table class="table rounded-2xl bg-base-300">
                 <!-- head -->
                 <thead>
                 <tr>
                     <th>Players</th>
-                    <th>Score</th>
-                    <th>Tickets</th>
+                    <th class="text-center">Score</th>
+                    <th class="text-center">Tickets</th>
                 </tr>
                 </thead>
                 <tbody>

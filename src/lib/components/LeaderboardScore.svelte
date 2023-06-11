@@ -20,8 +20,8 @@
             {/each}
         </div>
     </td>
-    <td>{team.score}%</td>
-    <td>
+    <td class="text-center">{team.score}%</td>
+    <td class="text-center">
         +{team.tickets} Tickets
     </td>
 </tr>

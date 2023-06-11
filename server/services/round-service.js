@@ -35,7 +35,7 @@ export async function getRounds() {
                                             [Op.in]: literal(`(SELECT "LeaderboardLeaderboardId" FROM "Round_Leaderboards" WHERE "RoundRoundId" = ${id})`),
                                         }
                                     },
-                                    attributes: ["score", "leaderboardId"],
+                                    attributes: ["score", "timeSet", "leaderboardId"],
                                 },
                             ],
                             attributes: ["id", "displayName"],

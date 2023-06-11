@@ -28,18 +28,17 @@
             for (let team of teams) {
                 team.score = 0;
                 for (let user of team.users) {
-                    team.score += user.scores.map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0);
+                    team.score += user.scores.filter(score => new Date(score.timeSet) < new Date(round.endTime)).map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0);
                 }
                 team.score = Math.round(team.score / team.users.length / round.leaderboards.length / round.maxScore * 10000) / 100;
             }
 
             // sort teams by score
             round.teams = teams.sort((a, b) => b.score - a.score);
+
             // calculate tickets
-
             round.teams.forEach((team, i) => {
-                    team.tickets = new Date() < new Date(round.startTime) ? 0 : (round.teams.length - i) * 3;
-
+                team.tickets = new Date() < new Date(round.startTime) ? 0 : (round.teams.length - i) * 3;
             });
         }
     }
