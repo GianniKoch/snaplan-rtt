@@ -12,14 +12,16 @@
     let curRound = 0
     let isLoading = true
 
-    onMount(async () => {
-        setInterval(async () => {
-            const res = await fetch(`http://localhost:3000/api/rounds`, {mode: "cors"})
-            rounds = (await res.json()).sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
-            isLoading = false
-        }, 2000, 0);
-
+    onMount(() => {
+        fetchRounds();
+        setInterval(fetchRounds, 2000);
     });
+
+    async function fetchRounds() {
+        const res = await fetch(`http://localhost:3000/api/rounds`, {mode: "cors"})
+        rounds = (await res.json()).sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+        isLoading = false
+    }
 
     function calculateTeamScores() {
         for (const round of rounds) {

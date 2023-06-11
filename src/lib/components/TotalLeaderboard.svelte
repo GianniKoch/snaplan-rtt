@@ -8,7 +8,8 @@
 
     function loadUsers() {
         users = [];
-        for (const round of rounds) {
+        const activeRounds = rounds.filter(round => new Date() > new Date(round.startTime))
+        for (const round of activeRounds) {
             for(const team of round.teams) {
                 for (const user of team.users) {
                     const existingUser = users.find(u => u.id === user.id);
@@ -27,8 +28,6 @@
             }
         }
 
-        const activeRounds = rounds.filter(round => new Date(round.startTime) < new Date())
-
         users.forEach(user => {
             user.totalScore = Math.round(user.totalScore / activeRounds.length * 10000) / 100
         });
@@ -38,7 +37,7 @@
 
 </script>
 
-<div class="rounded-2xl bg-base-300 mt-8 h-[65vh]">
+<div class="rounded-2xl bg-base-300 mt-8">
     <table class="table">
         <!-- head -->
         <thead>
