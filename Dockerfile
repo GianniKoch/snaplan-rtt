@@ -14,6 +14,7 @@ RUN npm install --only=production
 
 EXPOSE 3000
 EXPOSE 3001
+EXPOSE 5433
 
 RUN npm install -g pm2
 COPY --from=build /app/pm2.config.cjs .
