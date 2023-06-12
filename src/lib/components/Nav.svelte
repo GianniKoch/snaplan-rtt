@@ -33,7 +33,6 @@
         onClick();
     }
 
-    let staff = false;
     let isLoading = true;
     let user = null;
 
@@ -68,24 +67,8 @@
                     Leaderboard
                 </a>
             </div>
-            {#if staff}
-                <div class="items-stretch hidden lg:flex px-1">
-                    <a class="btn btn-ghost btn-md rounded-btn" href="/staff">
-                        <Fa icon={faUserTie} class="mr-2"/>
-                        Staff
-                    </a>
-                </div>
-            {/if}
         </div>
         <div class="flex-none">
-            {#if staff}
-                <div class="items-stretch hidden lg:flex px-1">
-                    <a class="btn btn-ghost btn-md rounded-btn" href="/staff" on:click={auth.logout}>
-                        <Fa icon={faUserTie} class="mr-2"/>
-                        Logout
-                    </a>
-                </div>
-            {/if}
             <div class="items-stretch hidden lg:flex px-1">
                 <a class="btn btn-ghost btn-md rounded-btn" href="{discordInviteLink}" target="_blank">
                     <Fa icon={faDiscord} scale={1.5}/>
@@ -97,6 +80,9 @@
                         <img class="w-20 rounded-full" src="https://cdn.scoresaber.com/avatars/{user.id}.jpg"/>
                     </label>
                     <ul tabindex="0" class="shadow menu dropdown-content bg-base-100 rounded-box">
+                        {#if user.admin}
+                            <li><a href="/admin">Admin</a></li>
+                        {/if}
                         <li><a href="http://localhost:3000/api/auth/steam/logout">Logout</a></li>
                     </ul>
                 </div>
@@ -166,6 +152,14 @@
                            on:click={onClick}>Logout</a>
                     </div>
                 </div>
+                {#if user.admin}
+                    <div class="items-stretch px-1">
+                        <a class="btn btn-ghost btn-md rounded-btn" href="/admin" on:click={onClick}>
+                            <Fa icon={faUserTie} class="mr-2"/>
+                            Admin
+                        </a>
+                    </div>
+                {/if}
             {:else if !isLoading}
                 <div class="items-stretch px-1 flex">
                     <a class="btn btn-sm items-center p-0 ml-3"

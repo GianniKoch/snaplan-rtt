@@ -82,6 +82,7 @@ export const Leaderboard = database.define('Leaderboard', {
 export const Team = database.define('Team', {
     teamId: {
         type: DataTypes.BIGINT,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true
     }
@@ -90,6 +91,7 @@ export const Team = database.define('Team', {
 export const Round = database.define('Round', {
     roundId: {
         type: DataTypes.BIGINT,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },

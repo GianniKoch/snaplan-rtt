@@ -30,9 +30,13 @@
             for (let team of teams) {
                 team.score = 0;
                 for (let user of team.users) {
-                    team.score += user.scores.filter(score => new Date(score.timeSet) < new Date(round.endTime)).map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0);
+                    const scores = user.scores.filter(score => new Date(score.timeSet) < new Date(round.endTime));
+                    const total = scores.map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0);
+                    if(user.displayName === "GianniKoch" && round.roundTitle=="Saturday")
+                        console.log(user.displayName, scores,total, round.maxScore)
+                    team.score += total
                 }
-                team.score = Math.round(team.score / team.users.length / round.leaderboards.length / round.maxScore * 10000) / 100;
+                team.score = Math.round(team.score / team.users.length / round.maxScore * 10000) / 100;
             }
 
             // sort teams by score
@@ -46,8 +50,6 @@
     }
 
     $: rounds && calculateTeamScores();
-
-
 </script>
 
 

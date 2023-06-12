@@ -15,7 +15,7 @@
                     const existingUser = users.find(u => u.id === user.id);
 
                     const score = user.scores.filter(score => new Date(score.timeSet) < new Date(round.endTime))
-                        .map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0) / round.maxScore / round.leaderboards.length
+                        .map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0) / round.maxScore
                     if (existingUser === undefined) {
                         user.totalScore = score
                         user.totalTickets = team.tickets
