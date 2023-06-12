@@ -1,5 +1,5 @@
 import {Leaderboard, Round, Score, Team, User} from "../database.js";
-import {literal, Op, where} from "sequelize";
+import {literal, Op} from "sequelize";
 
 export async function getRounds() {
     const rounds = [];

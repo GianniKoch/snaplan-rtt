@@ -4,7 +4,7 @@ import session from 'express-session'
 import passportSteam from 'passport-steam'
 import cors from "cors";
 import {addUser, getUser, getUsers, joinUser} from "./services/user-service.js";
-import {fetchAllScores, fetchScoresByPlayerId, getScoresByPlayerId, processScore} from "./services/score-service.js";
+import {fetchAllScores, fetchScoresByPlayerId, processScore} from "./services/score-service.js";
 import 'dotenv/config'
 import WebSocket from 'ws';
 import {
@@ -35,7 +35,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new SteamStrategy({
         returnURL: process.env.API_URL + '/api/auth/steam/return',
         realm: process.env.API_URL + '/',
-        apiKey: '34F837B3C3FCFC7BBF313DB60FEED3C8'
+        apiKey: process.env.STEAM_WEB_API_KEY
     }, function (identifier, profile, done) {
         setTimeout(function () {
             profile.identifier = identifier;
@@ -52,7 +52,7 @@ app.use(cors({
 }))
 
 app.use(session({
-    secret: 'qsfsqfqf', // TODO: Change this
+    secret: process.env.COOKIEE_SECRET,
     saveUninitialized: true,
     resave: false,
     cookie: {
@@ -170,7 +170,7 @@ app.listen(port, async () => {
     console.log('listening on port ' + port + '...');
 });
 
-const ws = new WebSocket('ws://scoresaber.com/ws');
+const ws = new WebSocket(process.env.SCORESABER_WEBSOCKET_URL);
 
 ws.on('error', console.error);
 

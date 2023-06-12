@@ -1,6 +1,13 @@
 import {DataTypes, Sequelize} from "sequelize";
+import 'dotenv/config';
 
-const database = new Sequelize('postgresql://postgres:password@localhost:5432/snaplan_rtt', {
+const DB_HOST = process.env.DB_HOST;
+const DB_PORT = process.env.DB_PORT;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
+
+const database = new Sequelize(`postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
     logging: false
 });
 

@@ -3,6 +3,7 @@
     import {onMount} from "svelte";
     import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
     import {faPlusCircle} from "@fortawesome/free-solid-svg-icons/faPlusCircle";
+    import {PUBLIC_API_URL} from "$env/static/public";
 
     let rounds = [];
     let players = [];
@@ -30,7 +31,7 @@
     });
 
     async function fetchRounds() {
-        const res = await fetch(`http://localhost:3000/api/rounds`, {mode: "cors"});
+        const res = await fetch(`${PUBLIC_API_URL}/api/rounds`, {mode: "cors"});
         rounds = (await res.json()).sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
         await fetchPlayers();
         if (selectedTeam !== undefined) {
@@ -39,7 +40,7 @@
     }
 
     async function fetchPlayers() {
-        const playerRes = await fetch(`http://localhost:3000/api/players`, {mode: "cors"});
+        const playerRes = await fetch(`${PUBLIC_API_URL}/api/players`, {mode: "cors"});
         players = await playerRes.json();
         filteredPlayers = [{id: '0', displayName: "Who's playing?"}, ...filterAvailablePlayers()];
     }
@@ -49,7 +50,7 @@
     }
 
     async function deleteRound(roundId) {
-        const res = await fetch(`http://localhost:3000/api/admin/rounds/${roundId}`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/rounds/${roundId}`, {
             method: "DELETE",
             mode: "cors",
             credentials: 'include'
@@ -59,7 +60,7 @@
     }
 
     async function deleteLeaderboard(leaderboardId) {
-        const res = await fetch(`http://localhost:3000/api/admin/leaderboards/${leaderboardId}`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/leaderboards/${leaderboardId}`, {
             method: "DELETE",
             mode: "cors",
             credentials: 'include'
@@ -68,7 +69,7 @@
     }
 
     async function addRound() {
-        const res = await fetch(`http://localhost:3000/api/admin/rounds`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/rounds`, {
             method: "POST",
             mode: "cors",
             credentials: 'include',
@@ -78,7 +79,7 @@
     }
 
     async function updateRound() {
-        const res = await fetch(`http://localhost:3000/api/admin/rounds`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/rounds`, {
             method: "PUT",
             mode: "cors",
             credentials: 'include',
@@ -111,7 +112,7 @@
     }
 
     async function addLeaderboard() {
-        const res = await fetch(`http://localhost:3000/api/admin/leaderboards`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/leaderboards`, {
             method: "POST",
             mode: "cors",
             credentials: 'include',
@@ -140,7 +141,7 @@
     }
 
     async function addTeam() {
-        const res = await fetch(`http://localhost:3000/api/admin/teams/${rounds[curRound].roundId}`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/teams/${rounds[curRound].roundId}`, {
             method: "POST",
             mode: "cors",
             credentials: 'include',
@@ -149,7 +150,7 @@
     }
 
     async function deleteTeam(teamId) {
-        const res = await fetch(`http://localhost:3000/api/admin/teams/${teamId}`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/teams/${teamId}`, {
             method: "DELETE",
             mode: "cors",
             credentials: 'include',
@@ -158,7 +159,7 @@
     }
 
     async function deletePlayerFromTeam(playerId, teamId) {
-        const res = await fetch(`http://localhost:3000/api/admin/users/${playerId}/${teamId}`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/users/${playerId}/${teamId}`, {
             method: "DELETE",
             mode: "cors",
             credentials: 'include',
@@ -167,7 +168,7 @@
     }
 
     async function addPlayerToTeam(playerId) {
-        const res = await fetch(`http://localhost:3000/api/admin/users/${playerId}/${selectedTeam.teamId}`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/users/${playerId}/${selectedTeam.teamId}`, {
             method: "POST",
             mode: "cors",
             credentials: 'include',
@@ -289,7 +290,7 @@
     {/if}
 </div>
 <div class="btn btn-ghost"
-     on:click={() => fetch('http://localhost:3000/api/scores/fetch-all', {mode:'cors', credentials:'include'})}>
+     on:click={() => fetch(`${PUBLIC_API_URL}/api/scores/fetch-all`, {mode:'cors', credentials:'include'})}>
     !! Refresh scores
 </div>
 

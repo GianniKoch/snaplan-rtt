@@ -2,12 +2,13 @@
     import Fa from "svelte-fa";
     import {faCamera, faMedal, faInfoCircle, faSignInAlt} from '@fortawesome/free-solid-svg-icons'
     import {onMount} from "svelte";
+    import {PUBLIC_API_URL} from "$env/static/public";
 
     let isLoading = true;
     let user = null;
 
     onMount(async () => {
-        const res = await fetch(`http://localhost:3000/api/me`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/me`, {
             credentials: 'include',
             mode: 'cors',
         });
@@ -27,7 +28,7 @@
                 <Fa icon={faInfoCircle} class="mr-2"/>
                 Info</a>
             {#if !isLoading && user && !user.joined}
-                <a class="btn btn-lg mx-4 my-2 btn-accent" href="http://localhost:3000/api/join">
+                <a class="btn btn-lg mx-4 my-2 btn-accent" href="${PUBLIC_API_URL}/api/join">
                     <Fa icon={faSignInAlt} class="mr-2"/>
                     Join tournament</a>
             {:else}

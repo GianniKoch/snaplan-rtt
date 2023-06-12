@@ -7,6 +7,7 @@
     import Leaderboard from "$lib/components/Leaderboard.svelte";
     import Timer from "$lib/components/Timer.svelte";
     import {to_number} from "svelte/internal";
+    import {PUBLIC_API_URL} from "$env/static/public";
 
     let rounds = []
     let curRound = 0
@@ -18,7 +19,7 @@
     });
 
     async function fetchRounds() {
-        const res = await fetch(`http://localhost:3000/api/rounds`, {mode: "cors"})
+        const res = await fetch(`${PUBLIC_API_URL}/api/rounds`, {mode: "cors"})
         rounds = (await res.json()).sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
         isLoading = false
     }

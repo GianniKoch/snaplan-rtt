@@ -2,11 +2,12 @@
     import "../app.css";
     import {onMount} from "svelte";
     import Nav from "$lib/components/Nav.svelte";
+    import {PUBLIC_API_URL} from "$env/static/public";
 
     let user = null;
 
     onMount(async () => {
-        const res = await fetch(`http://localhost:3000/api/me`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/me`, {
             credentials: 'include',
             mode: 'cors',
         });
