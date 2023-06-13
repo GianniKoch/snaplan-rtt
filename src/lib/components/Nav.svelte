@@ -6,7 +6,7 @@
     import {faMedal, faInfoCircle, faUserTie, faSignOutAlt, faSignInAlt} from '@fortawesome/free-solid-svg-icons'
     import {faDiscord} from '@fortawesome/free-brands-svg-icons'
     import AnimatedHamburger from "./AnimatedHamburger.svelte";
-    import {env} from "$env/static/public";
+    import {env} from "$env/dynamic/public";
 
     console.log(env.PUBLIC_API_URL, env.PUBLIC_ORIGIN_URL)
     const discordInviteLink = 'https://discord.gg/YdRdD7t'
