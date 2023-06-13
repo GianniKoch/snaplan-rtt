@@ -8,7 +8,6 @@
     import AnimatedHamburger from "./AnimatedHamburger.svelte";
     import {env} from "$env/dynamic/public";
 
-    console.log(env.PUBLIC_API_URL, env.PUBLIC_ORIGIN_URL)
     const discordInviteLink = 'https://discord.gg/YdRdD7t'
     export let open = false
     export let onClick = () => {
@@ -40,7 +39,7 @@
 
 
     onMount(async () => {
-        const res = await fetch(`${PUBLIC_API_URL}/api/me`, {
+        const res = await fetch(`${env.PUBLIC_API_URL}/api/me`, {
             credentials: 'include',
             mode: 'cors',
         });
@@ -85,13 +84,13 @@
                         {#if user.admin}
                             <li><a href="/admin">Admin</a></li>
                         {/if}
-                        <li><a href="{PUBLIC_API_URL}/api/auth/steam/logout">Logout</a></li>
+                        <li><a href="{env.PUBLIC_API_URL}/api/auth/steam/logout">Logout</a></li>
                     </ul>
                 </div>
             {:else if !isLoading}
                 <div class="items-stretch hidden lg:flex px-1 hidden lg:flex ">
                     <a class="btn btn-sm items-center p-0 -mt-1.5 ml-3"
-                       href="{PUBLIC_API_URL}/api/auth/steam">
+                       href="{env.PUBLIC_API_URL}/api/auth/steam">
                         <img src="https://community.akamai.steamstatic.com/public/images/signinthroughsteam/sits_01.png"
                              alt="Login with Steam"/>
                     </a>
@@ -99,7 +98,7 @@
             {/if}
             {#if user && !user.joined}
                 <div class="items-stretch hidden lg:flex px-1 hidden lg:flex ">
-                    <a class="btn btn-ghost btn-md rounded-btn ml-3" href="{PUBLIC_API_URL}/api/join">
+                    <a class="btn btn-ghost btn-md rounded-btn ml-3" href="{env.PUBLIC_API_URL}/api/join">
                         <Fa icon={faSignInAlt} class="mr-2"/>
                         Join tournament
                     </a>
@@ -137,7 +136,7 @@
 
             {#if user && !user.joined}
                 <div class="items-stretch px-1 flex">
-                    <a class="btn btn-ghost btn-md rounded-btn ml-3" href="{PUBLIC_API_URL}/api/join">
+                    <a class="btn btn-ghost btn-md rounded-btn ml-3" href="{env.PUBLIC_API_URL}/api/join">
                         <Fa icon={faSignInAlt} class="mr-2"/>
                         Join tournament
                     </a>
@@ -150,7 +149,7 @@
                     </label>
 
                     <div class="items-stretch px-1">
-                        <a class="btn btn-ghost btn-md rounded-btn" href="{PUBLIC_API_URL}/api/auth/steam/logout"
+                        <a class="btn btn-ghost btn-md rounded-btn" href="{env.PUBLIC_API_URL}/api/auth/steam/logout"
                            on:click={onClick}>Logout</a>
                     </div>
                 </div>
@@ -165,7 +164,7 @@
             {:else if !isLoading}
                 <div class="items-stretch px-1 flex">
                     <a class="btn btn-sm items-center p-0 ml-3"
-                       href="{PUBLIC_API_URL}/api/auth/steam">
+                       href="{env.PUBLIC_API_URL}/api/auth/steam">
                         <img src="https://community.akamai.steamstatic.com/public/images/signinthroughsteam/sits_01.png"
                              alt="Login with Steam"/>
                     </a>
