@@ -6,8 +6,9 @@
     import {faMedal, faInfoCircle, faUserTie, faSignOutAlt, faSignInAlt} from '@fortawesome/free-solid-svg-icons'
     import {faDiscord} from '@fortawesome/free-brands-svg-icons'
     import AnimatedHamburger from "./AnimatedHamburger.svelte";
-    import {PUBLIC_API_URL} from "$env/static/public";
+    import {PUBLIC_API_URL, PUBLIC_ORIGIN_URL} from "$env/static/public";
 
+    console.log(PUBLIC_API_URL, PUBLIC_ORIGIN_URL)
     const discordInviteLink = 'https://discord.gg/YdRdD7t'
     export let open = false
     export let onClick = () => {
