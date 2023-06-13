@@ -2,11 +2,11 @@ module.exports = {
     apps: [
         {
             name: 'frontend-web-server',
-            script: 'index.js',
+            script: 'build',
         },
         {
             name: 'backend-web-server',
-            script: 'server.js',
+            script: 'server/server.js',
         },
     ],
 };
