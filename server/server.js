@@ -3,8 +3,8 @@ import passport from 'passport'
 import session from 'express-session'
 import passportSteam from 'passport-steam'
 import cors from "cors";
-import {addUser, getUser, getUsers, joinUser} from "./services/user-service.js";
-import {fetchAllScores, fetchScoresByPlayerId, processScore} from "./services/score-service.js";
+import {addUser, deleteUser, getUser, getUsers, updateUser} from "./services/user-service.js";
+import {fetchAllScores, processScore} from "./services/score-service.js";
 import 'dotenv/config'
 import WebSocket from 'ws';
 import {
@@ -87,24 +87,24 @@ app.get('/api/scores/fetch-all', async (req, res) => {
 
 // Routes
 app.get('/api/auth/steam', passport.authenticate('steam', {failureRedirect: '/'}), function (req, res) {
-    res.redirect(process.env.ORIGIN_URL)
+    res.redirect(process.env.ORIGIN_URL + "/raffle")
 });
 
 app.get('/api/auth/steam/return', passport.authenticate('steam', {failureRedirect: '/'}), function (req, res) {
-    addUser(req.user.id, req.user.displayName);
-    res.redirect(process.env.ORIGIN_URL)
+    addUser(req.user);
+    res.redirect(process.env.ORIGIN_URL + "/raffle")
 });
 
 app.get('/api/auth/steam/logout', function (req, res) {
-    req.logout(() => res.redirect(process.env.ORIGIN_URL));
+    req.logout(() => res.redirect(process.env.ORIGIN_URL + "/raffle"));
 });
 
 app.get('/api/join', function (req, res) {
-    if (!req.user) return res.redirect(process.env.ORIGIN_URL);
-    res.redirect(process.env.ORIGIN_URL)
-    joinUser(req.user.id)
-    console.log(`Added user ${req.user.displayName} to the game!`);
-    fetchScoresByPlayerId(req.user.id);
+    // if (!req.user) return res.redirect(process.env.ORIGIN_URL);
+    // res.redirect(process.env.ORIGIN_URL)
+    // joinUser(req.user.id)
+    // console.log(`Added user ${req.user.displayName} to the game!`);
+    // fetchScoresByPlayerId(req.user.id);
 });
 
 // Admin endpoints
@@ -165,6 +165,23 @@ app.post('/api/admin/users/:userId/:teamId', async (req, res) => {
     res.status(200).send({});
 });
 
+//users
+app.post('/api/admin/users', bodyParser.json(), async (req, res) => {
+    if (!req.user || !(await getUser(req.user.id)).admin) return res.status(403).send({});
+    addUser(req.body);
+    res.status(200).send({});
+});
+app.delete('/api/admin/users/:userId', async (req, res) => {
+    if (!req.user || !(await getUser(req.user.id)).admin) return res.status(403).send({});
+    const {userId} = req.params;
+    await deleteUser(userId)
+    res.status(200).send({});
+});
+app.put('/api/admin/users', bodyParser.json(), async (req, res) => {
+    if (!req.user || !(await getUser(req.user.id)).admin) return res.status(403).send({});
+    await updateUser(req.body)
+    res.status(200).send({});
+});
 
 app.listen(port, async () => {
     console.log('listening on port ' + port + '...');

@@ -14,7 +14,12 @@
         user = (await res.json()).user;
 
         loading = false;
-        (!user || !user.admin) && goto('/')
+        if(!user){
+            goto(`${PUBLIC_API_URL}/api/auth/steam`)
+        }
+        else if(!user.admin) {
+            goto(`${PUBLIC_API_URL}/api/auth/steam/logout`)
+        }
     });
 </script>
 
@@ -30,6 +35,7 @@
         clip-path: polygon(0 0, 100% 0%, 100% 70%, 0% 100%);
     }
 </style>
+
 {#if !loading}
     <slot/>
 {/if}

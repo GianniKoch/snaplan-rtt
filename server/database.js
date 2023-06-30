@@ -27,10 +27,6 @@ export const User = database.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    joined: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-    },
     admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false
