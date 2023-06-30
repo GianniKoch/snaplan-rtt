@@ -1,13 +1,13 @@
 <script>
     import {onMount} from "svelte";
     import {goto} from "$app/navigation";
-    import {env} from "$env/dynamic/public";
+    import {PUBLIC_API_URL} from "$env/static/public";
 
     let user = null;
     let loading = true;
 
     onMount(async () => {
-        const res = await fetch(`${env.PUBLIC_API_URL}/api/me`, {
+        const res = await fetch(`${PUBLIC_API_URL}/api/me`, {
             credentials: 'include',
             mode: 'cors',
         });
