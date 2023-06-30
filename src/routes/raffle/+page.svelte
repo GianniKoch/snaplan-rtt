@@ -1,6 +1,6 @@
 <script>
     import Fa from "svelte-fa";
-    import {faCamera, faMedal, faInfoCircle, faSignInAlt} from '@fortawesome/free-solid-svg-icons'
+    import {faCamera, faMedal, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
 
@@ -24,19 +24,12 @@
                 SnapLAN<br>Raffle Tag Team
             </h1>
 
-            <a class="btn btn-lg mx-4 my-2 btn-outline" href="/info">
+            <a class="btn btn-lg mx-4 my-2 btn-outline" href="/raffle/info">
                 <Fa icon={faInfoCircle} class="mr-2"/>
                 Info</a>
-            {#if !isLoading && user && !user.joined}
-                <a class="btn btn-lg mx-4 my-2 btn-accent" href="${PUBLIC_API_URL}/api/join">
-                    <Fa icon={faSignInAlt} class="mr-2"/>
-                    Join tournament</a>
-            {:else}
-                <a class="btn btn-lg mx-4 my-2 btn-accent btn-outline" href="/leaderboard">
-                    <Fa icon={faMedal} class="mr-2"/>
-                    Leaderboard</a>
-            {/if}
-
+            <a class="btn btn-lg mx-4 my-2 btn-accent btn-outline" href="/raffle/leaderboard">
+                <Fa icon={faMedal} class="mr-2"/>
+                Leaderboard</a>
         </div>
     </div>
 </div>
@@ -44,7 +37,7 @@
 
 <div class="absolute bottom-0 right-0 m-10">
     <div class="items-stretch lg:flex">
-        <a class="btn btn-ghost btn-md rounded-btn" href="/">
+        <a class="btn btn-ghost btn-md rounded-btn">
             <div class="mx-2">
                 <Fa icon={faCamera} scale={1}/>
             </div>

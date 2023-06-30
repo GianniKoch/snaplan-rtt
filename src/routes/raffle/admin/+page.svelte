@@ -4,6 +4,7 @@
     import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
     import {faPlusCircle} from "@fortawesome/free-solid-svg-icons/faPlusCircle";
     import {PUBLIC_API_URL} from "$env/static/public";
+    import AdminPlayerItem from "$lib/components/AdminPlayerItem.svelte";
 
     let rounds = [];
     let players = [];
@@ -21,6 +22,9 @@
     let leaderboardDifficulty;
     let leaderboardBsrKey;
     let leaderboardMaxScore;
+
+    let playerId;
+    let displayName;
 
     onMount(async () => {
         await fetchRounds();
@@ -180,6 +184,24 @@
         return curRound === undefined ? [] : players.filter(player => !rounds[curRound].teams.map(t => t.users).flat().some(u => u.id === player.id))
     }
 
+    async function addPlayer(){
+        const res = await fetch(`${PUBLIC_API_URL}/api/admin/users`, {
+            method: "POST",
+            mode: "cors",
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: playerId,
+                displayName: displayName,
+            })
+        });
+        fetchPlayers();
+        playerId = "";
+        displayName = "";
+    }
+
 </script>
 <div class="block lg:flex mt-16">
     <div class="flex lg:block">
@@ -289,9 +311,29 @@
         </div>
     {/if}
 </div>
-<div class="btn btn-ghost"
-     on:click={() => fetch(`${PUBLIC_API_URL}/api/scores/fetch-all`, {mode:'cors', credentials:'include'})}>
-    !! Refresh scores
+<div class="relative block mb-24">
+
+    <div class="divider"></div>
+    <div class="prose">
+        <h3>Players</h3>
+    </div>
+    <div class="btn btn-ghost absolute right-2 top-2"
+         on:click={() => fetch(`${PUBLIC_API_URL}/api/scores/fetch-all`, {mode:'cors', credentials:'include'})}>
+        !! Refresh scores
+    </div>
+
+    <div>
+        <div class="bg-base-200 rounded-2xl p-4 my-4">
+            <input bind:value={playerId} type="text" placeholder="Id" class="input"/>
+            <input bind:value={displayName} type="text" placeholder="Display Name" class="input"/>
+            <button class="btn btn-primary" on:click={() => addPlayer()}>Add</button>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {#each players.sort((p1, p2) => p1.id.localeCompare(p2.id)) as player}
+            <AdminPlayerItem {player} {fetchPlayers} />
+        {/each}
+        </div>
+    </div>
 </div>
 
 <!-- Leaderboard model -->

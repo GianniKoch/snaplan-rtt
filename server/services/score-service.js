@@ -80,7 +80,7 @@ export async function getScoresByPlayerId(playerId) {
 
 export async function processScore(score){
     const playerId = score.score.leaderboardPlayerInfo.id
-    await getUser(playerId, true) && await Score.create({
+    await getUser(playerId) && await Score.create({
         scoreId: score.score.id,
         leaderboardId: score.leaderboard.id,
         score: score.score.baseScore,

@@ -26,6 +26,7 @@ COPY . .
 
 EXPOSE 3000
 EXPOSE 3001
+EXPOSE 5433
 
 RUN npm install -g pm2
 COPY --from=0 /app/pm2.config.cjs .
