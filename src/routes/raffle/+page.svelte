@@ -1,8 +1,12 @@
 <script>
     import Fa from "svelte-fa";
-    import {faCamera, faMedal, faInfoCircle, faSignInAlt} from '@fortawesome/free-solid-svg-icons'
+    import {faCamera, faMedal, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
+
+    console.log(PUBLIC_API_URL)
+    console.log(import.meta.env.PUBLIC_API_URL)
+
 
     let isLoading = true;
     let user = null;
