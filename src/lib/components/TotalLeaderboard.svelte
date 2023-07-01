@@ -32,7 +32,7 @@
             user.totalScore = Math.round(user.totalScore / activeRounds.length * 10000) / 100
         });
 
-        users.sort((a, b) => b.totalTickets - a.totalTickets)
+        users.sort((a,b) => a.totalTickets - b.totalTickets || b.totalScore - a.totalScore)
     }
 
 </script>
@@ -42,14 +42,18 @@
         <!-- head -->
         <thead>
         <tr>
+            <th></th>
             <th>Player</th>
             <th class="text-center">Total Score</th>
             <th class="text-center">Total Tickets</th>
         </tr>
         </thead>
         <tbody>
-        {#each users as user}
+        {#each users as user, i}
             <tr>
+                <td class="prose text-center w-20 rank">
+                    <h3>#{i + 1}</h3>
+                </td>
                 <td>
                     <div class="flex items-center space-x-3">
                         <div class="avatar tooltip tooltip-bottom tooltip-primary"

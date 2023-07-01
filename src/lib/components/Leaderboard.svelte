@@ -56,14 +56,15 @@
                 <!-- head -->
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Players</th>
                     <th class="text-center">Score</th>
                     <th class="text-center">Tickets</th>
                 </tr>
                 </thead>
                 <tbody>
-                {#each round.teams as team}
-                    <LeaderboardScore team={team}/>
+                {#each round.teams as team, i}
+                    <LeaderboardScore team={team} rank={i + 1}/>
                 {/each}
                 </tbody>
             </table>

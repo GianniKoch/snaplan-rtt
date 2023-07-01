@@ -1,8 +1,12 @@
 <script>
     export let team;
+    export let rank;
 </script>
 
 <tr>
+    <td class="prose text-center w-20 rank">
+        <h3>#{rank}</h3>
+    </td>
     <td>
         <div class="flex items-center space-x-3">
             {#each team.users as user}

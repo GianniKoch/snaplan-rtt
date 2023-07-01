@@ -365,10 +365,10 @@
     </form>
 </dialog>
 
-<!-- Leaderboard model -->
+<!-- Player add team model -->
 <dialog id="my_modal_2" class="modal">
     <form method="dialog" class="modal-box">
-        <h3 class="font-bold text-lg">Add leaderboard</h3>
+        <h3 class="font-bold text-lg">Add player to team</h3>
         <div class="card-body flex flex-wrap">
             {#if selectedTeam !== undefined}
                 <select class="select select-bordered join-item w-fit" on:change={(e) => {
