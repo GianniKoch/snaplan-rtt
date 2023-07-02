@@ -87,16 +87,16 @@ app.get('/api/scores/fetch-all', async (req, res) => {
 
 // Routes
 app.get('/api/auth/steam', passport.authenticate('steam', {failureRedirect: '/'}), function (req, res) {
-    res.redirect(process.env.ORIGIN_URL + "/raffle")
+    res.redirect(process.env.ORIGIN_URL)
 });
 
 app.get('/api/auth/steam/return', passport.authenticate('steam', {failureRedirect: '/'}), function (req, res) {
     addUser(req.user);
-    res.redirect(process.env.ORIGIN_URL + "/raffle")
+    res.redirect(process.env.ORIGIN_URL)
 });
 
 app.get('/api/auth/steam/logout', function (req, res) {
-    req.logout(() => res.redirect(process.env.ORIGIN_URL + "/raffle"));
+    req.logout(() => res.redirect(process.env.ORIGIN_URL));
 });
 
 app.get('/api/join', function (req, res) {

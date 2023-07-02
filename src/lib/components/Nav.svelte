@@ -57,13 +57,13 @@
         </div>
         <div class="flex-1 px-2 mx-2">
             <div class="items-stretch hidden lg:flex px-1">
-                <a class="btn btn-ghost btn-md rounded-btn" href="/raffle/info">
+                <a class="btn btn-ghost btn-md rounded-btn" href="/info">
                     <Fa icon={faInfoCircle} class="mr-2"/>
                     Info
                 </a>
             </div>
             <div class="items-stretch hidden lg:flex px-1">
-                <a class="btn btn-ghost btn-md rounded-btn" href="/raffle/leaderboard">
+                <a class="btn btn-ghost btn-md rounded-btn" href="/leaderboard">
                     <Fa icon={faMedal} class="mr-2"/>
                     Leaderboard
                 </a>
@@ -82,7 +82,7 @@
                     </label>
                     <ul tabindex="0" class="shadow menu dropdown-content bg-base-100 rounded-box">
                         {#if user.admin}
-                            <li><a href="/raffle/admin">Admin</a></li>
+                            <li><a href="/admin">Admin</a></li>
                         {/if}
                         <li><a href="{PUBLIC_API_URL}/api/auth/steam/logout">Logout</a></li>
                     </ul>
@@ -98,13 +98,13 @@
          class="card bg-base-200 card-bordered absolute dropdown-index lg:hidden">
         <div class="card-body items-center" use:clickOutside on:click_outside={handleClickOutside}>
             <div class="items-stretch px-1">
-                <a class="btn btn-ghost btn-md rounded-btn" href="/raffle/info" on:click={onClick}>
+                <a class="btn btn-ghost btn-md rounded-btn" href="/info" on:click={onClick}>
                     <Fa icon={faInfoCircle} class="mr-2"/>
                     Info
                 </a>
             </div>
             <div class="items-stretch px-1">
-                <a class="btn btn-ghost btn-md rounded-btn" href="/raffle/leaderboard" on:click={onClick}>
+                <a class="btn btn-ghost btn-md rounded-btn" href="/leaderboard" on:click={onClick}>
                     <Fa icon={faMedal} class="mr-2"/>
                     Leaderboard
                 </a>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="items-stretch px-1">
-                    <a class="btn btn-ghost btn-md rounded-btn" href="/raffle/admin" on:click={onClick}>
+                    <a class="btn btn-ghost btn-md rounded-btn" href="/admin" on:click={onClick}>
                         <Fa icon={faUserTie} class="mr-2"/>
                         Admin
                     </a>

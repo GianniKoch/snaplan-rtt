@@ -24,10 +24,10 @@
                 SnapLAN<br>Raffle Tag Team
             </h1>
 
-            <a class="btn btn-lg mx-4 my-2 btn-outline" href="/raffle/info">
+            <a class="btn btn-lg mx-4 my-2 btn-outline" href="/info">
                 <Fa icon={faInfoCircle} class="mr-2"/>
                 Info</a>
-            <a class="btn btn-lg mx-4 my-2 btn-accent btn-outline" href="/raffle/leaderboard">
+            <a class="btn btn-lg mx-4 my-2 btn-accent btn-outline" href="/leaderboard">
                 <Fa icon={faMedal} class="mr-2"/>
                 Leaderboard</a>
         </div>

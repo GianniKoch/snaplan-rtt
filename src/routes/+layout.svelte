@@ -1,5 +1,5 @@
 <script>
-    import "../../app.css";
+    import "../app.css";
     import {onMount} from "svelte";
     import Nav from "$lib/components/Nav.svelte";
     import {env} from "$env/dynamic/public";
