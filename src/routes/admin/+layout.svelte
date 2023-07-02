@@ -1,13 +1,13 @@
 <script>
     import {onMount} from "svelte";
     import {goto} from "$app/navigation";
-    import {PUBLIC_API_URL} from "$env/static/public";
+    import {env} from "$env/dynamic/public";
 
     let user = null;
     let loading = true;
 
     onMount(async () => {
-        const res = await fetch(`${PUBLIC_API_URL}/api/me`, {
+        const res = await fetch(`${env.PUBLIC_API_URL}/api/me`, {
             credentials: 'include',
             mode: 'cors',
         });
@@ -15,10 +15,10 @@
 
         loading = false;
         if(!user){
-            goto(`${PUBLIC_API_URL}/api/auth/steam`)
+            goto(`${env.PUBLIC_API_URL}/api/auth/steam`)
         }
         else if(!user.admin) {
-            goto(`${PUBLIC_API_URL}/api/auth/steam/logout`)
+            goto(`${env.PUBLIC_API_URL}/api/auth/steam/logout`)
         }
     });
 </script>

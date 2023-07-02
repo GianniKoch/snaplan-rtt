@@ -1,7 +1,7 @@
 <script>
     import {faTrash} from "@fortawesome/free-solid-svg-icons/faTrash";
     import Fa from "svelte-fa";
-    import {PUBLIC_API_URL} from "$env/static/public";
+    import {env} from "$env/dynamic/public";
 
     export let player = {};
     export let fetchPlayers = () => {};
@@ -10,7 +10,7 @@
     let displayName = player.displayName;
 
     async function deletePlayer(){
-        await fetch(`${PUBLIC_API_URL}/api/admin/users/${id}`, {
+        await fetch(`${env.PUBLIC_API_URL}/api/admin/users/${id}`, {
             method: "DELETE",
             mode: "cors",
             credentials: 'include',
@@ -19,7 +19,7 @@
     }
 
     async function update(){
-        await fetch(`${PUBLIC_API_URL}/api/admin/users`, {
+        await fetch(`${env.PUBLIC_API_URL}/api/admin/users`, {
             method: "PUT",
             mode: "cors",
             credentials: 'include',

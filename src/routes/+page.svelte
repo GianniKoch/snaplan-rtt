@@ -2,13 +2,13 @@
     import Fa from "svelte-fa";
     import {faCamera, faMedal, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
     import {onMount} from "svelte";
-    import {PUBLIC_API_URL} from "$env/static/public";
+    import {env} from "$env/dynamic/public";
 
     let isLoading = true;
     let user = null;
 
     onMount(async () => {
-        const res = await fetch(`${PUBLIC_API_URL}/api/me`, {
+        const res = await fetch(`${env.PUBLIC_API_URL}/api/me`, {
             credentials: 'include',
             mode: 'cors',
         });

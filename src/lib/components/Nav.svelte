@@ -6,7 +6,7 @@
     import {faMedal, faInfoCircle, faUserTie} from '@fortawesome/free-solid-svg-icons'
     import {faDiscord} from '@fortawesome/free-brands-svg-icons'
     import AnimatedHamburger from "./AnimatedHamburger.svelte";
-    import {PUBLIC_API_URL} from "$env/static/public";
+    import {env} from "$env/dynamic/public";
 
     const discordInviteLink = 'https://discord.gg/YdRdD7t'
     export let open = false
@@ -39,7 +39,7 @@
 
 
     onMount(async () => {
-        const res = await fetch(`${PUBLIC_API_URL}/api/me`, {
+        const res = await fetch(`${env.PUBLIC_API_URL}/api/me`, {
             credentials: 'include',
             mode: 'cors',
         });
@@ -84,7 +84,7 @@
                         {#if user.admin}
                             <li><a href="/admin">Admin</a></li>
                         {/if}
-                        <li><a href="{PUBLIC_API_URL}/api/auth/steam/logout">Logout</a></li>
+                        <li><a href="{env.PUBLIC_API_URL}/api/auth/steam/logout">Logout</a></li>
                     </ul>
                 </div>
             {/if}
@@ -125,7 +125,7 @@
                     </label>
 
                     <div class="items-stretch px-1">
-                        <a class="btn btn-ghost btn-md rounded-btn" href="{PUBLIC_API_URL}/api/auth/steam/logout"
+                        <a class="btn btn-ghost btn-md rounded-btn" href="{env.PUBLIC_API_URL}/api/auth/steam/logout"
                            on:click={onClick}>Logout</a>
                     </div>
                 </div>
