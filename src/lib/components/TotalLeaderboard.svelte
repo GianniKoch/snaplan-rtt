@@ -32,7 +32,7 @@
             user.totalScore = Math.round(user.totalScore / activeRounds.length * 10000) / 100
         });
 
-        users.sort((a,b) => a.totalTickets - b.totalTickets || b.totalScore - a.totalScore)
+        users.sort((a,b) => a.totalTickets - b.totalTickets || b.totalScore - a.totalScore).reverse()
     }
 
 </script>

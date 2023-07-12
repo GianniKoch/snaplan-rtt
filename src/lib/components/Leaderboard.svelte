@@ -38,7 +38,7 @@
                         <div class="card card-side bg-base-200 mb-4">
                             <figure class="relative p-0 m-0">
                                 <img class="h-24 w-24" src="{leaderboard.imgUrl}" alt="Movie"/>
-                                <div class="absolute bottom-0 left-0 btn btn-sm btn-primary btn-disabled rounded-none">{leaderboard.difficulty}</div>
+                                <div class="absolute bottom-0 left-0 btn btn-sm btn-primary rounded-none">{leaderboard.difficulty}</div>
                             </figure>
                             <div class="p-0 m-0 w-full">
                                 <h3 class="m-1 justify-items-center">{leaderboard.name}</h3>
