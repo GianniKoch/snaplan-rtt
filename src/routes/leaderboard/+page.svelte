@@ -32,7 +32,20 @@
                 team.score = 0;
                 for (let user of team.users) {
                     const scores = user.scores.filter(score => new Date(score.timeSet) < new Date(round.endTime));
-                    const total = scores.map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0);
+
+                    const latestScores = [];
+                    for (const score of scores) {
+                        const index = latestScores.findIndex(latestScore => latestScore.leaderboardId === score.leaderboardId);
+                        if (index === -1) {
+                            latestScores.push(score);
+                        } else {
+                            if (new Date(latestScores[index].timeSet) < new Date(score.timeSet)) {
+                                latestScores[index] = score;
+                            }
+                        }
+                    }
+
+                    const total = latestScores.map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0);
                     if(user.displayName === "GianniKoch" && round.roundTitle=="Saturday")
                         console.log(user.displayName, scores,total, round.maxScore)
                     team.score += total

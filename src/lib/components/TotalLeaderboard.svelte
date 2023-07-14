@@ -13,9 +13,20 @@
             for(const team of round.teams) {
                 for (const user of team.users) {
                     const existingUser = users.find(u => u.id === user.id);
+                    const scores = user.scores.filter(score => new Date(score.timeSet) < new Date(round.endTime));
 
-                    const score = user.scores.filter(score => new Date(score.timeSet) < new Date(round.endTime))
-                        .map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0) / round.maxScore
+                    const latestScores = [];
+                    for (const score of scores) {
+                        const index = latestScores.findIndex(latestScore => latestScore.leaderboardId === score.leaderboardId);
+                        if (index === -1) {
+                            latestScores.push(score);
+                        } else {
+                            if (new Date(latestScores[index].timeSet) < new Date(score.timeSet)) {
+                                latestScores[index] = score;
+                            }
+                        }
+                    }
+                    const score = latestScores.map(score => score.score).reduce((a, b) => to_number(a) + to_number(b), 0) / round.maxScore
                     if (existingUser === undefined) {
                         user.totalScore = score
                         user.totalTickets = team.tickets
