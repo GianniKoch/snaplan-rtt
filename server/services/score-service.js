@@ -89,8 +89,10 @@ export async function getScoresByPlayerId(playerId) {
 export async function processScore(score) {
     const playerId = score.score.leaderboardPlayerInfo.id
     const user = await getUser(playerId);
-    if (user !== undefined) {
 
+    console.log(`Found score of ${playerId}!`)
+
+    if (user !== undefined) {
         await Score.create({
             scoreId: score.score.id,
             leaderboardId: score.leaderboard.id,
