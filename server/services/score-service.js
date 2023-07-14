@@ -1,4 +1,4 @@
-import {getUser, getUsers} from "./user-service.js";
+import {getAllUserIds, getUsers} from "./user-service.js";
 import {Score} from "../database.js";
 import fetch from "node-fetch";
 
@@ -88,11 +88,12 @@ export async function getScoresByPlayerId(playerId) {
 
 export async function processScore(score) {
     const playerId = score.score.leaderboardPlayerInfo.id
-    const user = await getUser(playerId);
+    const userIds = await getAllUserIds();
 
-    console.log(`Found score of ${playerId}!`)
 
-    if (user !== undefined) {
+    if (userIds.includes(playerId)) {
+        console.log(`Found score of ${playerId}!`)
+
         await Score.create({
             scoreId: score.score.id,
             leaderboardId: score.leaderboard.id,

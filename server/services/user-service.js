@@ -4,6 +4,9 @@ import {fetchScoresByPlayerId} from "./score-service.js";
 export async function getUser(id) {
     return await User.findOne({where: {id: id}});
 }
+export async function getAllUserIds(){
+    return (await User.findAll()).map((user) => user.id);
+}
 
 export async function addUser(user) {
     if(user.id === undefined) return;
