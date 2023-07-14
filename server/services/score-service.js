@@ -19,12 +19,13 @@ async function getScores(playerId, pages) {
     return scores;
 }
 
-function range(i){
-    function* x(i){
+function range(i) {
+    function* x(i) {
         yield i
         if (i > 1)
             yield* x(i - 1)
     }
+
     return Array.from(x(i)).reverse()
 }
 
@@ -47,9 +48,9 @@ export async function fetchAllScores() {
 export async function fetchScoresByPlayerId(playerId) {
     try {
 
-    const pageCount = await getPageCountOfPlayer(playerId);
-    console.log(`Fetching ${pageCount} pages of player ${playerId}!`)
-    getScores(playerId, pageCount).then((scores) => Score.bulkCreate(scores, {ignoreDuplicates: true}) && console.log(`Added ${scores.length} scores of player ${playerId}!`));
+        const pageCount = await getPageCountOfPlayer(playerId);
+        console.log(`Fetching ${pageCount} pages of player ${playerId}!`)
+        getScores(playerId, pageCount).then((scores) => Score.bulkCreate(scores, {ignoreDuplicates: true}) && console.log(`Added ${scores.length} scores of player ${playerId}!`));
 
     } catch (e) {
         console.log(`Error fetching scores of player ${playerId}: ${e}`);
@@ -85,13 +86,19 @@ export async function getScoresByPlayerId(playerId) {
     });
 }
 
-export async function processScore(score){
+export async function processScore(score) {
     const playerId = score.score.leaderboardPlayerInfo.id
-    await getUser(playerId) && await Score.create({
-        scoreId: score.score.id,
-        leaderboardId: score.leaderboard.id,
-        score: score.score.baseScore,
-        timeSet: score.score.timeSet,
-        userId: playerId
-    }, {ignoreDuplicates: true}) && console.log(`Added score ${score.score.id} of player ${playerId}!`)
+    const user = await getUser(playerId);
+    if (user !== undefined) {
+
+        await Score.create({
+            scoreId: score.score.id,
+            leaderboardId: score.leaderboard.id,
+            score: score.score.baseScore,
+            timeSet: score.score.timeSet,
+            userId: playerId
+        }, {ignoreDuplicates: true})
+
+        console.log(`Added score ${score.score.id} of player ${playerId}!`)
+    }
 }

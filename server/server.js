@@ -195,7 +195,9 @@ ws.on('message', (data) => {
     try {
         const message = JSON.parse(data.toString())
         try {
-            message.commandName === 'score' && processScore(message.commandData)
+            if(message.commandName === 'score'){
+                processScore(message.commandData)
+            }
         } catch (e) {
             console.log(e)
         }
