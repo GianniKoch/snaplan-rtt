@@ -40,14 +40,21 @@ async function fetchScorePageOfPlayer(id, page) {
 export async function fetchAllScores() {
     const users = await getUsers();
     for (const user of users) {
-        fetchScoresByPlayerId(user.id);
+        await fetchScoresByPlayerId(user.id);
     }
 }
 
 export async function fetchScoresByPlayerId(playerId) {
+    try {
+
     const pageCount = await getPageCountOfPlayer(playerId);
     console.log(`Fetching ${pageCount} pages of player ${playerId}!`)
     getScores(playerId, pageCount).then((scores) => Score.bulkCreate(scores, {ignoreDuplicates: true}) && console.log(`Added ${scores.length} scores of player ${playerId}!`));
+
+    } catch (e) {
+        console.log(`Error fetching scores of player ${playerId}: ${e}`);
+        return await fetchScoresByPlayerId(playerId)
+    }
 }
 
 async function get(url, options = {}) {
