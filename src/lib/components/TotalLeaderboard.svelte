@@ -40,7 +40,7 @@
         }
 
         users.forEach(user => {
-            user.totalScore = Math.round(user.totalScore / activeRounds.length * 10000) / 100
+            user.totalScore = Math.round(user.totalScore / activeRounds.length * 1000000) / 10000
         });
 
         users.sort((a,b) => a.totalTickets - b.totalTickets || b.totalScore - a.totalScore).reverse()

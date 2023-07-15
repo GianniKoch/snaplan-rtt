@@ -50,7 +50,7 @@
                         console.log(user.displayName, scores,total, round.maxScore)
                     team.score += total
                 }
-                team.score = Math.round(team.score / team.users.length / round.maxScore * 10000) / 100;
+                team.score = Math.round(team.score / team.users.length / round.maxScore * 1000000) / 10000;
             }
 
             // sort teams by score
